@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "companies",
+  "info": {
+    "singularName": "company",
+    "pluralName": "companies",
+    "displayName": "company"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "employees": {
+      "type": "integer"
+    },
+    "established": {
+      "type": "integer"
+    },
+    "description": {
+      "type": "string"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "revenue": {
+      "type": "string"
+    },
+    "company_status": {
+      "type": "string"
+    }
+  }
+}
