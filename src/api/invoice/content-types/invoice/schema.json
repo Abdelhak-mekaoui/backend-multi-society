@@ -1,0 +1,71 @@
+{
+  "kind": "collectionType",
+  "collectionName": "invoices",
+  "info": {
+    "singularName": "invoice",
+    "pluralName": "invoices",
+    "displayName": "Invoice"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "number": {
+      "type": "string"
+    },
+    "date": {
+      "type": "date"
+    },
+    "dueDate": {
+      "type": "date"
+    },
+    "customer": {
+      "type": "string"
+    },
+    "customerAddress": {
+      "type": "string"
+    },
+    "customerEmail": {
+      "type": "string"
+    },
+    "subtotal": {
+      "type": "float"
+    },
+    "taxTotal": {
+      "type": "float"
+    },
+    "total": {
+      "type": "float"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "text"
+    },
+    "termsAndConditions": {
+      "type": "text"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["draft", "sent", "paid", "overdue", "cancelled"]
+    },
+    "receipt": {
+      "type": "string"
+    },
+    "transactionId": {
+      "type": "string"
+    },
+    "companyId": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::company.company"
+    },
+    "items": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::invoice-article.invoice-article",
+       "mappedBy": "invoice"
+    }
+  }
+}

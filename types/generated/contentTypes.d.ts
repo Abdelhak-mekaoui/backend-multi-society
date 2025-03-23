@@ -564,6 +564,86 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiInvoiceArticleInvoiceArticle
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'invoice_articles';
+  info: {
+    displayName: 'invoice-article';
+    pluralName: 'invoice-articles';
+    singularName: 'invoice-article';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    article: Schema.Attribute.Relation<'manyToOne', 'api::article.article'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    invoice: Schema.Attribute.Relation<'manyToOne', 'api::invoice.invoice'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::invoice-article.invoice-article'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    quantity: Schema.Attribute.Float;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiInvoiceInvoice extends Struct.CollectionTypeSchema {
+  collectionName: 'invoices';
+  info: {
+    displayName: 'Invoice';
+    pluralName: 'invoices';
+    singularName: 'invoice';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    companyId: Schema.Attribute.Relation<'manyToOne', 'api::company.company'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    currency: Schema.Attribute.String;
+    customer: Schema.Attribute.String;
+    customerAddress: Schema.Attribute.String;
+    customerEmail: Schema.Attribute.String;
+    date: Schema.Attribute.Date;
+    dueDate: Schema.Attribute.Date;
+    items: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::invoice-article.invoice-article'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::invoice.invoice'
+    > &
+      Schema.Attribute.Private;
+    notes: Schema.Attribute.Text;
+    number: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    receipt: Schema.Attribute.String;
+    status: Schema.Attribute.Enumeration<
+      ['draft', 'sent', 'paid', 'overdue', 'cancelled']
+    >;
+    subtotal: Schema.Attribute.Float;
+    taxTotal: Schema.Attribute.Float;
+    termsAndConditions: Schema.Attribute.Text;
+    total: Schema.Attribute.Float;
+    transactionId: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -1079,6 +1159,8 @@ declare module '@strapi/strapi' {
       'api::category.category': ApiCategoryCategory;
       'api::company.company': ApiCompanyCompany;
       'api::global.global': ApiGlobalGlobal;
+      'api::invoice-article.invoice-article': ApiInvoiceArticleInvoiceArticle;
+      'api::invoice.invoice': ApiInvoiceInvoice;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

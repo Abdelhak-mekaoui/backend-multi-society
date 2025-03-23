@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "invoice_articles",
+  "info": {
+    "singularName": "invoice-article",
+    "pluralName": "invoice-articles",
+    "displayName": "invoice-article"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "article": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::article.article"
+    },
+    "quantity": {
+      "type": "float"
+    },
+    "invoice": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::invoice.invoice",
+      "inversedBy": "items"
+    }
+  }
+}
