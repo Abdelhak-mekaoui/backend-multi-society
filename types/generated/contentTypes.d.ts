@@ -369,11 +369,11 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiAboutAbout extends Struct.SingleTypeSchema {
+export interface ApiAboutAbout extends Struct.CollectionTypeSchema {
   collectionName: 'abouts';
   info: {
     description: 'Write about yourself and the content you create';
-    displayName: 'About';
+    displayName: 'Transaction';
     pluralName: 'abouts';
     singularName: 'about';
   };
@@ -381,17 +381,27 @@ export interface ApiAboutAbout extends Struct.SingleTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    blocks: Schema.Attribute.DynamicZone<
-      ['shared.media', 'shared.quote', 'shared.rich-text', 'shared.slider']
-    >;
+    amount: Schema.Attribute.BigInteger;
+    category: Schema.Attribute.String;
+    company: Schema.Attribute.Relation<'manyToOne', 'api::company.company'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    currency: Schema.Attribute.String;
+    date: Schema.Attribute.Date;
+    description: Schema.Attribute.Text;
+    ifrs_account: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::ifrs-account.ifrs-account'
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::about.about'> &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    title: Schema.Attribute.String;
+    receipt: Schema.Attribute.String;
+    ref: Schema.Attribute.String;
+    supplier: Schema.Attribute.Relation<'oneToOne', 'api::supplier.supplier'>;
+    type: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -532,6 +542,7 @@ export interface ApiCompanyCompany extends Struct.CollectionTypeSchema {
     name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     revenue: Schema.Attribute.String;
+    transactions: Schema.Attribute.Relation<'oneToMany', 'api::about.about'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -570,80 +581,65 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   };
 }
 
-export interface ApiInvoiceArticleInvoiceArticle
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'invoice_articles';
+export interface ApiIfrsAccountIfrsAccount extends Struct.CollectionTypeSchema {
+  collectionName: 'ifrs_accounts';
   info: {
-    displayName: 'invoice-article';
-    pluralName: 'invoice-articles';
-    singularName: 'invoice-article';
+    displayName: 'ifrs-account';
+    pluralName: 'ifrs-accounts';
+    singularName: 'ifrs-account';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    article: Schema.Attribute.Relation<'manyToOne', 'api::article.article'>;
+    class: Schema.Attribute.String;
+    code: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    invoice: Schema.Attribute.Relation<'manyToOne', 'api::invoice.invoice'>;
+    description: Schema.Attribute.Text;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::invoice-article.invoice-article'
+      'api::ifrs-account.ifrs-account'
     > &
       Schema.Attribute.Private;
+    name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    quantity: Schema.Attribute.Float;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
   };
 }
 
-export interface ApiInvoiceInvoice extends Struct.CollectionTypeSchema {
-  collectionName: 'invoices';
+export interface ApiSupplierSupplier extends Struct.CollectionTypeSchema {
+  collectionName: 'suppliers';
   info: {
-    displayName: 'Invoice';
-    pluralName: 'invoices';
-    singularName: 'invoice';
+    description: '';
+    displayName: 'Supplier';
+    pluralName: 'suppliers';
+    singularName: 'supplier';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    companyId: Schema.Attribute.Relation<'manyToOne', 'api::company.company'>;
+    address: Schema.Attribute.String;
+    category: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    currency: Schema.Attribute.String;
-    customer: Schema.Attribute.String;
-    customerAddress: Schema.Attribute.String;
-    customerEmail: Schema.Attribute.String;
-    date: Schema.Attribute.Date;
-    dueDate: Schema.Attribute.Date;
-    items: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::invoice-article.invoice-article'
-    >;
+    email: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::invoice.invoice'
+      'api::supplier.supplier'
     > &
       Schema.Attribute.Private;
+    name: Schema.Attribute.String;
     notes: Schema.Attribute.Text;
-    number: Schema.Attribute.String;
+    phone: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    receipt: Schema.Attribute.String;
-    status: Schema.Attribute.Enumeration<
-      ['draft', 'sent', 'paid', 'overdue', 'cancelled']
-    >;
-    subtotal: Schema.Attribute.Float;
-    taxTotal: Schema.Attribute.Float;
-    termsAndConditions: Schema.Attribute.Text;
-    total: Schema.Attribute.Float;
-    transactionId: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1162,8 +1158,8 @@ declare module '@strapi/strapi' {
       'api::about.about': ApiAboutAbout;
       'api::company.company': ApiCompanyCompany;
       'api::global.global': ApiGlobalGlobal;
-      'api::invoice-article.invoice-article': ApiInvoiceArticleInvoiceArticle;
-      'api::invoice.invoice': ApiInvoiceInvoice;
+      'api::ifrs-account.ifrs-account': ApiIfrsAccountIfrsAccount;
+      'api::supplier.supplier': ApiSupplierSupplier;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

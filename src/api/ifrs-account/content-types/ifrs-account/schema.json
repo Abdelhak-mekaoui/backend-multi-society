@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ifrs_accounts",
+  "info": {
+    "singularName": "ifrs-account",
+    "pluralName": "ifrs-accounts",
+    "displayName": "ifrs-account"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "code": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "class": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

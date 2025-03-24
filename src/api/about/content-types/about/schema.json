@@ -1,10 +1,10 @@
 {
-  "kind": "singleType",
+  "kind": "collectionType",
   "collectionName": "abouts",
   "info": {
     "singularName": "about",
     "pluralName": "abouts",
-    "displayName": "About",
+    "displayName": "Transaction",
     "description": "Write about yourself and the content you create"
   },
   "options": {
@@ -12,12 +12,45 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "title": {
+    "date": {
+      "type": "date"
+    },
+    "amount": {
+      "type": "biginteger"
+    },
+    "currency": {
       "type": "string"
     },
-    "blocks": {
-      "type": "dynamiczone",
-      "components": ["shared.media", "shared.quote", "shared.rich-text", "shared.slider"]
+    "company": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::company.company",
+      "inversedBy": "transactions"
+    },
+    "type": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "ref": {
+      "type": "string"
+    },
+    "receipt": {
+      "type": "string"
+    },
+    "supplier": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::supplier.supplier"
+    },
+    "ifrs_account": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::ifrs-account.ifrs-account"
     }
   }
 }
