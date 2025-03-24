@@ -4,7 +4,8 @@
   "info": {
     "singularName": "company",
     "pluralName": "companies",
-    "displayName": "company"
+    "displayName": "company",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -36,6 +37,27 @@
     },
     "company_status": {
       "type": "string"
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "documents": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
     }
   }
 }
