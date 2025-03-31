@@ -62,7 +62,7 @@
     "transactions": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::about.about",
+      "target": "api::transaction.transaction",
       "mappedBy": "company"
     }
   }

@@ -1,22 +1,21 @@
 {
   "kind": "collectionType",
-  "collectionName": "abouts",
+  "collectionName": "transactions",
   "info": {
-    "singularName": "about",
-    "pluralName": "abouts",
+    "singularName": "transaction",
+    "pluralName": "transactions",
     "displayName": "Transaction",
-    "description": "Write about yourself and the content you create"
+    "description": ""
   },
   "options": {
-    "draftAndPublish": false
+    "draftAndPublish": true
   },
-  "pluginOptions": {},
   "attributes": {
     "date": {
       "type": "date"
     },
     "amount": {
-      "type": "biginteger"
+      "type": "integer"
     },
     "currency": {
       "type": "string"
@@ -33,6 +32,11 @@
     "category": {
       "type": "string"
     },
+    "ifrs_account": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::ifrs-account.ifrs-account"
+    },
     "description": {
       "type": "text"
     },
@@ -40,17 +44,20 @@
       "type": "string"
     },
     "receipt": {
-      "type": "string"
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
     },
     "supplier": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::supplier.supplier"
-    },
-    "ifrs_account": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::ifrs-account.ifrs-account"
     }
   }
 }

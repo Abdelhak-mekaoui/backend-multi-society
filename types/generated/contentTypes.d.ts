@@ -369,45 +369,6 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiAboutAbout extends Struct.CollectionTypeSchema {
-  collectionName: 'abouts';
-  info: {
-    description: 'Write about yourself and the content you create';
-    displayName: 'Transaction';
-    pluralName: 'abouts';
-    singularName: 'about';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    amount: Schema.Attribute.BigInteger;
-    category: Schema.Attribute.String;
-    company: Schema.Attribute.Relation<'manyToOne', 'api::company.company'>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    currency: Schema.Attribute.String;
-    date: Schema.Attribute.Date;
-    description: Schema.Attribute.Text;
-    ifrs_account: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::ifrs-account.ifrs-account'
-    >;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::about.about'> &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    receipt: Schema.Attribute.String;
-    ref: Schema.Attribute.String;
-    supplier: Schema.Attribute.Relation<'oneToOne', 'api::supplier.supplier'>;
-    type: Schema.Attribute.String;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
   collectionName: 'articles';
   info: {
@@ -436,70 +397,6 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     taxRate: Schema.Attribute.Integer;
     unit: Schema.Attribute.String;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
-  collectionName: 'authors';
-  info: {
-    description: 'Create authors for your content';
-    displayName: 'Author';
-    pluralName: 'authors';
-    singularName: 'author';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    articles: Schema.Attribute.Relation<'oneToMany', 'api::article.article'>;
-    avatar: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    email: Schema.Attribute.String;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::author.author'
-    > &
-      Schema.Attribute.Private;
-    name: Schema.Attribute.String;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
-  collectionName: 'categories';
-  info: {
-    description: 'Organize your content into categories';
-    displayName: 'Category';
-    pluralName: 'categories';
-    singularName: 'category';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    articles: Schema.Attribute.Relation<'oneToMany', 'api::article.article'>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    description: Schema.Attribute.Text;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::category.category'
-    > &
-      Schema.Attribute.Private;
-    name: Schema.Attribute.String;
-    publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.UID;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -542,7 +439,41 @@ export interface ApiCompanyCompany extends Struct.CollectionTypeSchema {
     name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     revenue: Schema.Attribute.String;
-    transactions: Schema.Attribute.Relation<'oneToMany', 'api::about.about'>;
+    transactions: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::transaction.transaction'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiEventEvent extends Struct.CollectionTypeSchema {
+  collectionName: 'events';
+  info: {
+    displayName: 'Event';
+    pluralName: 'events';
+    singularName: 'event';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    all_day: Schema.Attribute.Boolean;
+    category: Schema.Attribute.String;
+    color: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::event.event'> &
+      Schema.Attribute.Private;
+    priority: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    start_date: Schema.Attribute.Date;
+    title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -612,10 +543,89 @@ export interface ApiIfrsAccountIfrsAccount extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiInvoiceArticleInvoiceArticle
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'invoice_articles';
+  info: {
+    displayName: 'invoice-article';
+    pluralName: 'invoice-articles';
+    singularName: 'invoice-article';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    article: Schema.Attribute.Relation<'manyToOne', 'api::article.article'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    invoice: Schema.Attribute.Relation<'manyToOne', 'api::invoice.invoice'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::invoice-article.invoice-article'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    quantity: Schema.Attribute.Float;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiInvoiceInvoice extends Struct.CollectionTypeSchema {
+  collectionName: 'invoices';
+  info: {
+    displayName: 'Invoice';
+    pluralName: 'invoices';
+    singularName: 'invoice';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    companyId: Schema.Attribute.Relation<'manyToOne', 'api::company.company'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    currency: Schema.Attribute.String;
+    customer: Schema.Attribute.String;
+    customerAddress: Schema.Attribute.String;
+    customerEmail: Schema.Attribute.String;
+    date: Schema.Attribute.Date;
+    dueDate: Schema.Attribute.Date;
+    items: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::invoice-article.invoice-article'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::invoice.invoice'
+    > &
+      Schema.Attribute.Private;
+    notes: Schema.Attribute.Text;
+    number: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    receipt: Schema.Attribute.String;
+    status: Schema.Attribute.Enumeration<
+      ['draft', 'sent', 'paid', 'overdue', 'cancelled']
+    >;
+    subtotal: Schema.Attribute.Float;
+    taxTotal: Schema.Attribute.Float;
+    termsAndConditions: Schema.Attribute.Text;
+    total: Schema.Attribute.Float;
+    transactionId: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiSupplierSupplier extends Struct.CollectionTypeSchema {
   collectionName: 'suppliers';
   info: {
-    description: '';
     displayName: 'Supplier';
     pluralName: 'suppliers';
     singularName: 'supplier';
@@ -640,6 +650,48 @@ export interface ApiSupplierSupplier extends Struct.CollectionTypeSchema {
     notes: Schema.Attribute.Text;
     phone: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTransactionTransaction extends Struct.CollectionTypeSchema {
+  collectionName: 'transactions';
+  info: {
+    description: '';
+    displayName: 'Transaction';
+    pluralName: 'transactions';
+    singularName: 'transaction';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    amount: Schema.Attribute.Integer;
+    category: Schema.Attribute.String;
+    company: Schema.Attribute.Relation<'manyToOne', 'api::company.company'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    currency: Schema.Attribute.String;
+    date: Schema.Attribute.Date;
+    description: Schema.Attribute.Text;
+    ifrs_account: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::ifrs-account.ifrs-account'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::transaction.transaction'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    receipt: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    ref: Schema.Attribute.String;
+    supplier: Schema.Attribute.Relation<'oneToOne', 'api::supplier.supplier'>;
+    type: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1155,11 +1207,15 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
-      'api::about.about': ApiAboutAbout;
+      'api::article.article': ApiArticleArticle;
       'api::company.company': ApiCompanyCompany;
+      'api::event.event': ApiEventEvent;
       'api::global.global': ApiGlobalGlobal;
       'api::ifrs-account.ifrs-account': ApiIfrsAccountIfrsAccount;
+      'api::invoice-article.invoice-article': ApiInvoiceArticleInvoiceArticle;
+      'api::invoice.invoice': ApiInvoiceInvoice;
       'api::supplier.supplier': ApiSupplierSupplier;
+      'api::transaction.transaction': ApiTransactionTransaction;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

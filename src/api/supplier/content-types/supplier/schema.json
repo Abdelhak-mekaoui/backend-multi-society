@@ -4,8 +4,7 @@
   "info": {
     "singularName": "supplier",
     "pluralName": "suppliers",
-    "displayName": "Supplier",
-    "description": ""
+    "displayName": "Supplier"
   },
   "options": {
     "draftAndPublish": true
