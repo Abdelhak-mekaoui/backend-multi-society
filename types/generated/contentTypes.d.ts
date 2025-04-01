@@ -403,36 +403,6 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiAssetDocumentAssetDocument
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'asset_documents';
-  info: {
-    displayName: 'AssetDocument';
-    pluralName: 'asset-documents';
-    singularName: 'asset-document';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    asset: Schema.Attribute.Relation<'manyToOne', 'api::asset.asset'>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::asset-document.asset-document'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    url: Schema.Attribute.String;
-  };
-}
-
 export interface ApiAssetAsset extends Struct.CollectionTypeSchema {
   collectionName: 'assets';
   info: {
@@ -445,13 +415,14 @@ export interface ApiAssetAsset extends Struct.CollectionTypeSchema {
   };
   attributes: {
     category: Schema.Attribute.String;
+    companyId: Schema.Attribute.Relation<'manyToOne', 'api::company.company'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     currency: Schema.Attribute.String;
     currentValue: Schema.Attribute.Integer;
+    depreciationRate: Schema.Attribute.Integer;
     description: Schema.Attribute.String;
-    descriptionrate: Schema.Attribute.Integer;
     documents: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true
@@ -459,10 +430,12 @@ export interface ApiAssetAsset extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::asset.asset'> &
       Schema.Attribute.Private;
+    location: Schema.Attribute.String;
     name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    purchasedate: Schema.Attribute.Date;
-    purchaseprice: Schema.Attribute.Integer;
+    purchaseDate: Schema.Attribute.Date;
+    purchasePrice: Schema.Attribute.Integer;
+    status: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -683,6 +656,35 @@ export interface ApiInvoiceInvoice extends Struct.CollectionTypeSchema {
     termsAndConditions: Schema.Attribute.Text;
     total: Schema.Attribute.Float;
     transactionId: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiSupplementFileSupplementFile
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'supplement_files';
+  info: {
+    displayName: 'SupplementFile';
+    pluralName: 'supplement-files';
+    singularName: 'supplement-file';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    edcf: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::supplement-file.supplement-file'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1304,7 +1306,6 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::article.article': ApiArticleArticle;
-      'api::asset-document.asset-document': ApiAssetDocumentAssetDocument;
       'api::asset.asset': ApiAssetAsset;
       'api::company.company': ApiCompanyCompany;
       'api::event.event': ApiEventEvent;
@@ -1312,6 +1313,7 @@ declare module '@strapi/strapi' {
       'api::ifrs-account.ifrs-account': ApiIfrsAccountIfrsAccount;
       'api::invoice-article.invoice-article': ApiInvoiceArticleInvoiceArticle;
       'api::invoice.invoice': ApiInvoiceInvoice;
+      'api::supplement-file.supplement-file': ApiSupplementFileSupplementFile;
       'api::supplier.supplier': ApiSupplierSupplier;
       'api::task.task': ApiTaskTask;
       'api::transaction.transaction': ApiTransactionTransaction;

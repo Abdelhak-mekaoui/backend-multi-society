@@ -1,0 +1,17 @@
+{
+  "kind": "collectionType",
+  "collectionName": "supplement_files",
+  "info": {
+    "singularName": "supplement-file",
+    "pluralName": "supplement-files",
+    "displayName": "SupplementFile"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "edcf": {
+      "type": "string"
+    }
+  }
+}

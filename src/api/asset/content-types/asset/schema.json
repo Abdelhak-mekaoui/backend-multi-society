@@ -16,10 +16,10 @@
     "category": {
       "type": "string"
     },
-    "purchasedate": {
+    "purchaseDate": {
       "type": "date"
     },
-    "purchaseprice": {
+    "purchasePrice": {
       "type": "integer"
     },
     "currency": {
@@ -28,7 +28,7 @@
     "currentValue": {
       "type": "integer"
     },
-    "descriptionrate": {
+    "depreciationRate": {
       "type": "integer"
     },
     "description": {
@@ -43,6 +43,18 @@
       ],
       "type": "media",
       "multiple": true
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "inactive" ]
+    },
+    "location": {
+      "type": "string"
+    },
+    "companyId": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::company.company"
     }
   }
 }
