@@ -10,8 +10,34 @@
     "draftAndPublish": true
   },
   "attributes": {
-    "edcf": {
+    "name": {
       "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "size": {
+      "type": "string"
+    },
+    "uploadDate": {
+      "type": "date"
+    },
+    "company": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "url": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
     }
   }
 }

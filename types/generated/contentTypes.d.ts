@@ -674,20 +674,26 @@ export interface ApiSupplementFileSupplementFile
     draftAndPublish: true;
   };
   attributes: {
+    category: Schema.Attribute.String;
+    company: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    edcf: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::supplement-file.supplement-file'
     > &
       Schema.Attribute.Private;
+    name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    size: Schema.Attribute.String;
+    type: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    uploadDate: Schema.Attribute.Date;
+    url: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
   };
 }
 
