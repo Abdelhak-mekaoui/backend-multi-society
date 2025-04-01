@@ -58,6 +58,12 @@
       ],
       "type": "media",
       "multiple": true
+    },
+    "transactions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::transaction.transaction",
+      "mappedBy": "company"
     }
   }
 }
