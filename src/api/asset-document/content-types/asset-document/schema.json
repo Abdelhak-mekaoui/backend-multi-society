@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "asset_documents",
+  "info": {
+    "singularName": "asset-document",
+    "pluralName": "asset-documents",
+    "displayName": "AssetDocument"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "url": {
+      "type": "string"
+    },
+    "asset": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::asset.asset"
+    }
+  }
+}

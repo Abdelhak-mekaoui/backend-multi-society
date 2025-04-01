@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "assets",
+  "info": {
+    "singularName": "asset",
+    "pluralName": "assets",
+    "displayName": "Asset"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "purchasedate": {
+      "type": "date"
+    },
+    "purchaseprice": {
+      "type": "integer"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "currentValue": {
+      "type": "integer"
+    },
+    "descriptionrate": {
+      "type": "integer"
+    },
+    "description": {
+      "type": "string"
+    },
+    "documents": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    }
+  }
+}
