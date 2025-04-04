@@ -27,7 +27,8 @@
       "inversedBy": "transactions"
     },
     "type": {
-      "type": "string"
+      "type": "string",
+      "enum": ["achat", "vente"]
     },
     "category": {
       "type": "string"
