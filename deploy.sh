@@ -20,7 +20,7 @@ docker push adilmm/backend-multi-society:latest
 
 # Deploy to server
 echo "Deploying to server..."
-ssh root@167.99.199.169 << 'EOF'
+ssh ubuntu@193.108.53.146 << 'EOF'
   echo "Pulling latest image..."
   docker pull adilmm/backend-multi-society:latest
   
