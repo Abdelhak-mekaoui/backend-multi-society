@@ -27,7 +27,9 @@ EXPOSE 1337
 CMD ["npm", "run", "start"]
 
 # docker build -t adilmm/backend-multi-society:latest .
+# docker push adilmm/backend-multi-society:latest
+# ssh root@167.99.199.169
+# docker pull adilmm/backend-multi-society:latest
 # docker rm -f backend-multi-society-container
 # docker run -d -p 1337:1337 --name backend-multi-society-container -v strapi-tmp:/usr/src/app/.tmp  adilmm/backend-multi-society:latest
-# docker push adilmm/backend-multi-society:latest
-# docker pull adilmm/backend-multi-society:latest
+
