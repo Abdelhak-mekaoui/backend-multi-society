@@ -48,7 +48,13 @@
     },
     "status": {
       "type": "enumeration",
-      "enum": ["draft", "sent", "paid", "overdue", "cancelled"]
+      "enum": [
+        "draft",
+        "sent",
+        "paid",
+        "overdue",
+        "cancelled"
+      ]
     },
     "receipt": {
       "type": "string"
@@ -65,7 +71,7 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::invoice-article.invoice-article",
-       "mappedBy": "invoice"
+      "mappedBy": "invoice"
     }
   }
 }

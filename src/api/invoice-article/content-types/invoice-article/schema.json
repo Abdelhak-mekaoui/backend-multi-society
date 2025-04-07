@@ -4,7 +4,8 @@
   "info": {
     "singularName": "invoice-article",
     "pluralName": "invoice-articles",
-    "displayName": "invoice-article"
+    "displayName": "invoiceArticle",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
