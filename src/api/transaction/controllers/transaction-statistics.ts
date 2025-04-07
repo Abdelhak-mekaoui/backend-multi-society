@@ -1,14 +1,20 @@
 import { factories } from '@strapi/strapi';
-import { GetMonthlyStatsParams, MonthlyStats } from '../types/transaction-statistics';
+
+interface GetMonthlyStatsParams {
+  startDate: string;
+  endDate: string;
+  company?: string;
+}
 
 export default factories.createCoreController('api::transaction.transaction', ({ strapi }) => ({
   async getMonthlyStats(ctx) {
     try {
-      const { startDate, endDate } = ctx.query as unknown as GetMonthlyStatsParams;
+      const { startDate, endDate, company } = ctx.query as unknown as GetMonthlyStatsParams;
       
       const stats = await strapi.service('api::transaction.transaction-statistics').getMonthlyStats({
         startDate,
-        endDate
+        endDate,
+        company
       });
 
       return { data: stats };

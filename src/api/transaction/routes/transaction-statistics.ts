@@ -7,7 +7,12 @@ const routes = [
     handler: 'transaction-statistics.getMonthlyStats',
     config: {
       policies: [],
-      auth: false
+      auth: false,
+      query: {
+        startDate: { type: 'string', required: true },
+        endDate: { type: 'string', required: true },
+        company: { type: 'string', required: false }
+      }
     }
   }
 ] as const;
