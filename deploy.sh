@@ -4,6 +4,12 @@
 echo "Checking out main branch..."
 git checkout main
 
+# Push changes to main branch
+echo "Pushing to main branch..."
+git add .
+git commit -m "Deployment commit"
+git push origin main
+
 # Build the Docker image
 echo "Building Docker image..."
 docker build -t adilmm/backend-multi-society:latest .
