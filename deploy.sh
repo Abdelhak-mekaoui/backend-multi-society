@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Ensure we're on the main branch
+echo "Checking out main branch..."
+git checkout main
+
 # Build the Docker image
 echo "Building Docker image..."
 docker build -t adilmm/backend-multi-society:latest .

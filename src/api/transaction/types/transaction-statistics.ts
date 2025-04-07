@@ -8,4 +8,5 @@ export interface MonthlyStats {
 export interface GetMonthlyStatsParams {
   startDate: string;
   endDate: string;
+  company?: string;
 } 
