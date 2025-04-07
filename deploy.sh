@@ -22,13 +22,13 @@ docker push adilmm/backend-multi-society:latest
 echo "Deploying to server..."
 ssh ubuntu@193.108.53.146 << 'EOF'
   echo "Pulling latest image..."
-  docker pull adilmm/backend-multi-society:latest
+  sudo docker pull adilmm/backend-multi-society:latest
   
   echo "Removing old container..."
-  docker rm -f backend-multi-society-container || true
+  sudo docker rm -f backend-multi-society-container || true
   
   echo "Starting new container..."
-  docker run -d -p 1337:1337 \
+  sudo docker run -d -p 1337:1337 \
     --name backend-multi-society-container \
     -v strapi-tmp:/usr/src/app/.tmp \
     adilmm/backend-multi-society:latest
